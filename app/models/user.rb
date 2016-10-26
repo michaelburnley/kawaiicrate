@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 	validates :password, presence: true, length: { minimum: 8 }
 
 	has_many :addresses, as: :addressable, dependent: :destroy
+	has_many :charges
+	has_one  :plan
 
 	def User.digest(string)
 		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

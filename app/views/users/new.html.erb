@@ -8,8 +8,6 @@
 
 			<%= render 'shared/error_messages' %>
 			
-			<h2>User Registration</h2>
-
 			<%= f.label :email %>
 			<%= f.email_field :email, class: 'form-control' %>
 
@@ -19,34 +17,8 @@
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field :password_confirmation, class: 'form-control' %>
 
-			<h2>Shipping Information</h2>
-			<%= f.fields_for :address do |add| %>		
-
-			<%= add.label :first_name %>
-			<%= add.text_field :first_name %>
-
-			<%= add.label :last_name %>
-			<%= add.text_field :last_name %>
-
-			<%= add.label :address1 %>
-			<%= add.text_field :address1 %>
-
-			<%= add.label :address2 %>
-			<%= add.text_field :address2 %>
-
-			<%= add.label :city %>
-			<%= add.text_field :city %>
-
-			<%= add.label :state %>
-			<%= add.text_field :state %>
-
-			<%= add.label :zip_code %>
-			<%= add.text_field :zip_code %>
-
-			<%= add.label :country %>
-			<%= add.text_field :country %>
-			<% end %>
 			<%= f.submit "Create my account", class: "btn btn-primary" %>
 		<% end %>
+    		<p>Returning user? <%= link_to "Log In!", login_path %></p>
 	</div>
 </div>	

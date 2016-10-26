@@ -184,3 +184,137 @@ p {
     text-decoration: none;
   }
 }
+
+/* pricing page */
+
+.plan {
+  width: 33%;
+  float: left;
+  list-style-type: none;
+}
+
+.price {
+  text-align: center;
+}
+
+.plan li {
+  list-style-type: none;
+}
+
+.features ul {
+  text-align: center;
+  padding-left: 0 !important;
+}
+
+.plan {
+ border: 1px solid black;
+}
+
+.sub-btn {
+  width: 50%;
+}
+
+@keyframes animateBorder {
+ to {
+	outline-color: #EA3556;
+	box-shadow: 0 0 0 6px yellow;
+    }
+}
+
+.sub-btn:hover {
+  outline: 6px dashed yellow;
+  box-shadow: 0 0 0 6px #69D2E7;
+  animation: 1s animateBorder infinite;
+}
+
+.btn-container {
+  width:100%;
+  text-align: center;
+}
+
+.img-container {
+  width: 100%;
+  text-align: center;
+}
+
+.shipping-select {
+  width: 100%;
+  float: right;
+}
+
+#sameshipping {
+  width: 20px;
+}
+
+h3 {
+  text-align: center;
+}
+
+/* home */
+.hiw {
+  width: 33%;
+  float: left;
+  border: 1px solid black;
+  padding: 1%;
+}
+
+.center {
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+}
+
+.brands {
+ position: relative;
+}
+
+.brands img {
+ width: 24%;
+}
+
+.theme {
+  background: gray;
+  padding-bottom: 7%;
+}
+
+.theme h2
+{
+  font-size: 48px;
+  color: white;
+}
+
+.theme .theme_text {
+  width: 50%;
+  float: right;
+}
+
+.theme img {
+  width: 50%;
+  float: left;	
+}
+/* checkout */
+
+/* mobile */
+
+@media (max-width: 1000px)
+{
+	.container {
+		width: 100%;	
+	}
+
+	.hiw {
+		width: 100%;
+	}
+	
+	.theme .theme_text {
+		float: left;
+		width: 100%;	
+	}
+
+	.theme img {
+		float: right;
+		width: 100%;
+	}
+}

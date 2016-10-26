@@ -1,45 +1,181 @@
 <% provide(:title, "Checkout") %>
 
+<style>
+	.billing
+	{
+		width: 48%;
+		float: left;
+	}
 
-		<%= form_for(@user) do |f| %>
+	.shipping
+	{
+		width: 48%;
+		float: right;
+	}
 
-			<%= render 'shared/error_messages' %>
+	.col-md-offset-3
+	{
+		margin-left: 0% !important;
+	}
+
+	.col-md-6
+	{
+		width: 100% !important;
+	}	
+</style>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+	Stripe.setPublishableKey('pk_test_14ViUGZ90Yda79AYPhEvOHsU');
+</script>
+
+<div class="row">
+	<%= render 'layouts/plans' %>
+</div>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+	<%= form_for @address do |f| %>
+
+			<div class="payment-errors"></div>
+			<div class="billing" id="billing">	
+				<h2>Billing Address</h2>
 			
-			<h2>Billing Address</h2>
-			<%= f.fields_for :address do |add| %>		
+				<%= f.label :first_name, "First Name" %>
+				<%= f.text_field :first_name %>
 
-			<%= add.label :first_name %>
-			<%= add.text_field :first_name %>
+				<%= f.label :last_name, "Last Name" %>
+				<%= f.text_field :last_name %>
 
-			<%= add.label :last_name %>
-			<%= add.text_field :last_name %>
+				<%= f.label :address1, "Address" %>
+				<%= f.text_field :address1 %>
 
-			<%= add.label :address1 %>
-			<%= add.text_field :address1 %>
+				<%= f.label :address2, "Apt, Suite, Unit, Etc." %>
+				<%= f.text_field :address2 %>
 
-			<%= add.label :address2 %>
-			<%= add.text_field :address2 %>
+				<%= f.label :city, "City" %>
+				<%= f.text_field :city %>
 
-			<%= add.label :city %>
-			<%= add.text_field :city %>
+				<%= f.label :state, "State" %>
+				<%= f.text_field :state %>
+				
+				<%= f.label :zip_code, "ZIPCODE" %>
+				<%= f.text_field :zip_code %>
 
-			<%= add.label :state %>
-			<%= add.text_field :state %>
+				<%= f.label :country, "Country" %>
+				<%= f.country_select :country, ["United States"], {} %>
 
-			<%= add.label :zip_code %>
-			<%= add.text_field :zip_code %>
+			<div class="checkbox">		
+				<label class="shipping-select">
+					<%= check_box_tag 'sameshipping', 'yes', false %>
+					<span class="checkbox-label">Shipping Address is the same as Billing!</span>
+				</label>
+			</div>
+			</div>
 
-			<%= add.label :country %>
-			<%= add.text_field :country %>
-			
-			<%= f.hidden_field :userid, :value => @user.id %>
-	
-			<% end %>
-			<%= f.submit "Create my account", class: "btn btn-primary" %>
+			<div class="shipping" id="shipping">
+				<h2>Shipping Address</h2>
 
-      <%= f.label :remember_me, class: "checkbox inline" do %>
-	<%= f.check_box :remember_me %>
-	<span>Remember me on this computer.</span>
-      <% end %>
+				<%= f.label :shipping_first_name, "First Name" %>
+				<%= f.text_field :shipping_first_name %>
 
-		<% end %>
+				<%= f.label :shipping_last_name, "Last Name" %>
+				<%= f.text_field :shipping_last_name %>
+
+				<%= f.label :shipping_address1, "Address" %>
+				<%= f.text_field :shipping_address1 %>
+
+				<%= f.label :shipping_address2, "Apt, Suite, Unit, Etc." %>
+				<%= f.text_field :shipping_address2 %>
+
+				<%= f.label :shipping_city, "City" %>
+				<%= f.text_field :shipping_city %>
+
+				<%= f.label :shipping_state, "State" %>
+				<%= f.text_field :shipping_state %>
+
+				<%= f.label :shipping_zip_code, "ZIP CODE" %>
+				<%= f.text_field :shipping_zip_code %>
+
+				<%= f.label :shipping_country, "Country" %>
+				<%= f.country_select :shipping_country, ["United States"], {} %>
+			</div>
+
+
+			<div class="payment-errors"></div>
+			<div id="card_info">
+				<div id="card_number_container">
+					<%= label_tag "Card Number" %> 
+					<%= text_field_tag :card_number, nil, name: nil,  :placeholder => "Card Number", :data => {:stripe => "number"} %> 
+				</div>
+				<div id="card_verification_container">
+					<%= label_tag "Card Verification" %> 
+					<span style="width: 100%;">(CVV)</span>
+					<%= text_field_tag :card_verification, nil, name: nil, :placeholder=> "CVV", :data => {:stripe => "cvv"} %> 
+					<div id="expiration">
+					<%= label_tag "Card Expiration" %> 
+					<span style="width: 100%;">MM/YY</span>
+					<%= select_tag :exp_month, options_for_select(cc_months), :data => {:stripe => "exp-month"} %> 
+					<span>/</span>
+					<%= select_tag :exp_year, options_for_select(cc_years), :data => {:"stripe" => "exp-year"} %> 
+				</div>
+			</div>
+			</div>
+			<%= hidden_field_tag "plan_id", :plan_id %>
+
+			<%= f.submit "Subscribe", class: "btn btn-primary submit" %>
+
+	<% end %>
+	</div>
+</div>
+
+<script>
+
+ if($('#address_shipping_country').val() == "US")
+	{
+		$('#plan_button_monthly').val('monthly');
+		$('#plan_button_tri-monthly').val('tri-monthly');
+		$('#plan_button_yearly').val('yearly');
+	}
+ else
+	{
+		$('#plan_button_monthly').val('monthly_int');
+		$('#plan_button_tri-monthly').val('tri-monthly_int');
+		$('#plan_button_yearly').val('yearly_int');
+	} 
+
+  $('#sameshipping').on('change', function(){
+      if ( $(this).is(':checked') ) {
+         $('#shipping').hide();
+	$('#address_shipping_address1').val($('#address_address1').val());
+	$('#address_shipping_address2').val($('#address_address2').val());
+	$('#address_shipping_zip_code').val($('#address_zip_code').val());
+	$('#address_shipping_city').val($('#address_city').val());
+	$('#address_shipping_country').val($('#address_country').val());
+	$('#address_shipping_state').val($('#address_state').val());
+	$('#address_shipping_first_name').val($('#address_first_name').val());
+	$('#address_shipping_last_name').val($('#address_last_name').val());
+     } else {
+         $('#shipping').show();
+     }
+ });
+
+$('#plan_button_monthly').click(function(){
+	$('#plan_id').val($('#plan_button_monthly').val());
+});
+
+$('#plan_button_tri-monthly').click(function(){
+	$('#plan_id').val($('#plan_button_tri-monthly').val());
+});
+
+
+$('#plan_button_yearly').click(function(){
+	$('#plan_id').val($('#plan_button_yearly').val());
+});
+
+
+$('.link-btn').css({"display":"none"});
+</script>
+
+
+<%= javascript_include_tag params[:payments] %>

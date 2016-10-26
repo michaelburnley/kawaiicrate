@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gem 'stripe'
 gem 'bootstrap-sass'
+gem 'country_select'
+gem 'thredded', '~> 0.6.1'
+gem 'mail_form'
+gem 'simple_form'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'

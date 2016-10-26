@@ -4,9 +4,60 @@
 	<p>A CRATE FOR THE ANIME OBSESSED</p>
 	<p>Starting at $35/month</p>
 	<p>+ $5 Shipping</p>
-	<%= link_to "Sign Up Now!", '#', class: "btn btn-lg btn-primary" %>
+	<%= link_to "Subscribe", signup_path, class: "btn btn-lg btn-primary" %>
 </div>
 
-<%= link_to image_tag("rails.png", alt: "Rails Logo"), 'http://rubyonrails.org/' %>
+<div class="container center">
+	<h2>How it Works!</h2>
+	<div class="hiw">
+		<h3>Subscribe to Kawaii Crate</h4>
+		<p>We get together the absolute best anime stuff we can find, based around a monthly theme!</p>	
+	</div>
 
-<%= render 'layouts/subscriptions' %>
+	<div class="hiw">
+		<h3>We Pack Your Box</h4>
+		<p>On the 20th of every month, we ship your crate out from our warehouse.</p>	
+	</div>
+
+	<div class="hiw">
+		<h3>You Enjoy Your Gifts!</h4>	
+		<p>And if you're ever unhappy with your crate just send it back and we'll give you a refund!</p>
+	</div>
+</div>
+<div class="container center">
+	<h2>What's in a Kawaii Crate?</h2>
+	<p>We pick the best licensed Anime goodies delivered directly to your door, every month!</p>
+	<img src="">
+</div>
+
+<div class="container center theme">
+	<h2>This Month's Theme</h2>
+	<div class="theme_text">
+		<h3>Stardew Valley</h3>
+		<p>We pick the best licensed Anime goodies delivered directly to your door, every month!</p>
+		<p>We pick the best licensed Anime goodies delivered directly to your door, every month!</p>
+		<p>We pick the best licensed Anime goodies delivered directly to your door, every month!</p>
+		<p>We pick the best licensed Anime goodies delivered directly to your door, every month!</p>
+	</div>
+	<%= image_tag "theme.jpg" %>
+</div>
+
+<div class="container center">
+	<h2>Our Licensed Anime Partners</h2>
+	<p>We pick the best licensed Anime goodies delivered directly to your door, every month!</p>
+	<div class="brands">
+		<%= image_tag "kodansha_logo.jpg" %>
+		<%= image_tag "ge_logo.png" %>
+		<%= image_tag "sentai_logo.jpg" %>
+		<%= image_tag "funko_logo.png" %>
+	</div>
+</div>
+
+<div class="container center">
+	<h2>Ready to get yours?</h2>
+	<%= render 'layouts/plans' %>
+</div>
+
+<script>
+$('.checkout').css({"display":"none"});
+</script>

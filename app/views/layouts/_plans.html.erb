@@ -1,0 +1,31 @@
+<div class="plan-container">
+ <ul>
+ 	<% @plans.each do |plan| %>
+	<div class="box">
+		<li class="plan">
+			<h3><%= plan[:name] %></h3>
+			<div class="img-container">
+				<%= image_tag "#{plan[:stripe_id]}CrateLarge.png", :size => "200x200" %>
+			</div>
+			<h3 class="price"><%= plan[:features].split(',')[0].strip.tr('[\"','') %></h3>
+			<span class="features">
+				<ul>
+					<li><%= plan[:features].split(',')[1].strip.tr('\"','') %></li>
+					<li><%= plan[:features].split(',')[2].strip.tr('\"','') %></li>
+					<li><%= plan[:features].split(',')[3].strip.tr('\"','') %></li>
+					<li><%= plan[:features].split(',')[4].strip.tr('\"]','') %></li>
+				</ul>
+			</span>
+			<br>
+			<div class="btn-container">
+				<%= button_tag "Sign Up", { :id => "plan_button_#{plan[:stripe_id]}", :class => 'btn btn-primary sub-btn checkout', :value => "#{plan[:stripe_id]}" } %>
+				<%= button_to "Subscribe", signup_path, :id => "sub_button", :class => 'btn btn-primary sub-btn link-btn', :method => :get  %>
+			</div>
+			<br>
+		</li>
+	</div>	
+	<% end %>
+ </ul>
+
+</div>
+

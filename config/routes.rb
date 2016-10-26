@@ -1,24 +1,28 @@
 Rails.application.routes.draw do
-  get 'addresses/new'
 
-  get 'addresses/edit'
+  root			   	    'static_pages#home'
+  get 'contact'			 => 'static_pages#contact'
+  get 'faq'			 => 'static_pages#faq'
+  get 'about' 			 => 'static_pages#about'
+  get 'signup'		         => 'users#new'
+  get 'login'			 => 'sessions#new'
+  post 'login'			 => 'sessions#create'
+  delete 'logout'		 => 'sessions#destroy'
+  get 'plans'			 => 'charges#plans'
+  get 'thankyou'		 => 'charges#thankyou'
+  post 'webhooks'		 => 'charges#webhooks'
+  get 'checkout' 		 => 'addresses#new'
+  get 'edit'			 => 'addresses#edit'
+  get 'past'			 => 'static_pages#pastcrates'
+  match '/contacts', to: 'contacts#new', via: 'get'
+  
 
-  get 'sessions/new'
-
-  get 'users/new'
-
-  root			     'static_pages#home'
-  get 'contact'		 =>  'static_pages#contact'
-  get 'faq'		 =>  'static_pages#faq'
-  get 'about' 		 =>  'static_pages#about'
-  get 'signup'		 =>  'users#new'
-  get 'login'		 =>  'sessions#new'
-  post 'login'		 =>  'sessions#create'
-  delete 'logout'	 =>  'sessions#destroy'
-  get 'subscriptions'    =>  'static_pages#subscriptions'
-
+  resources :addresses  
   resources :users
-  # The priority is based upon order of creation: first created -> highest priority.
+  resources :charges  
+  resources "contacts", only: [:new, :create]
+
+# The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
