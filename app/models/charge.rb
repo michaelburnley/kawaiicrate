@@ -1,6 +1,9 @@
 class Charge < ActiveRecord::Base
 	belongs_to :user
 
+	validates :card_number, presence: true, length: {maximum: 16}
+	validates :card_verifications, presence: true, length: {maximum: 4}
+
  def subscription_checkout(plan_id, stripe_id, stripe_token)
 	plan		= Stripe::Plan.retrieve(plan_id)
 	customer = Stripe::Customer.retrieve(stripe_id)	
