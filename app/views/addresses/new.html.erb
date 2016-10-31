@@ -57,7 +57,7 @@
 				<%= f.text_field :city %>
 
 				<%= f.label :state, "State" %>
-				<%= f.text_field :state %>
+				<%= select_tag :state, options_for_select(states) %> 
 				
 				<%= f.label :zip_code, "ZIPCODE" %>
 				<%= f.text_field :zip_code %>
@@ -92,8 +92,8 @@
 				<%= f.text_field :shipping_city %>
 
 				<%= f.label :shipping_state, "State" %>
-				<%= f.text_field :shipping_state %>
-
+				<%= select_tag :shipping_state, options_for_select(states) %> 
+				
 				<%= f.label :shipping_zip_code, "ZIP CODE" %>
 				<%= f.text_field :shipping_zip_code %>
 
