@@ -5,7 +5,6 @@ gem 'bootstrap-sass'
 gem 'country_select'
 gem 'thredded', '~> 0.6.1'
 gem 'mail_form'
-gem 'simple_form'
 gem 'passenger'
 
 
